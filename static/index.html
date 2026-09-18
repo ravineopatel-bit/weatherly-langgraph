@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Ask about current weather and the week ahead with your personal weather agent.">
+  <title>Weatherly · Your weather, in conversation</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/style.css"><script src="/static/app.js" defer></script>
+</head>
+<body>
+  <div class="shell">
+    <aside>
+      <a class="brand" href="/" aria-label="Weatherly home"><span class="brand-icon">W</span>weatherly<span class="brand-dot">.</span></a>
+      <div class="sidebar-body"><p class="eyebrow">YOUR DAILY OUTLOOK</p><h1>A little clarity.<br>Whatever<br>the weather.</h1><p class="intro">Current conditions and the week ahead, one conversation away.</p>
+      <div class="capabilities"><div><span>01</span> Find the weather anywhere</div><div><span>02</span> Plan for the next 7 days</div><div><span>03</span> Keep the conversation going</div></div></div>
+      <div class="source-note">Forecast data by <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo ↗</a><br><span>Model-based estimates. Conditions can change.</span></div>
+    </aside>
+    <main>
+      <header><div><span class="section-label">WEATHER ASSISTANT</span><p>Good plans start with the forecast.</p></div><button id="reset" class="secondary" type="button">＋ New chat</button></header>
+      <section class="conversation" aria-label="Weather conversation">
+        <div id="welcome"><div class="welcome-mark" aria-hidden="true">↗</div><p class="eyebrow">LET’S LOOK OUTSIDE</p><h2>What’s the weather<br>where you’re headed?</h2><p>Ask for a city, a forecast, or whether to pack an umbrella.</p>
+        <div class="suggestions"><button data-question="What is the weather in Mumbai, India today?">Mumbai today <span>↗</span></button><button data-question="Will it rain tomorrow in London, UK?">Rain in London tomorrow? <span>↗</span></button><button data-question="Give me a 7-day forecast for New York City, USA.">A week in New York <span>↗</span></button></div></div>
+        <div id="messages" role="log" aria-live="polite" aria-relevant="additions"></div>
+      </section>
+      <div class="composer-area"><p id="status" role="status"></p><form id="chat-form"><label for="question" class="sr-only">Your weather question</label><textarea id="question" name="question" rows="1" maxlength="2000" placeholder="Ask about the weather…" required></textarea><button id="send" type="submit" aria-label="Send question">↑</button></form><div class="composer-note"><span>Include a city and country for the best match.</span><span>Powered by LangGraph</span></div></div>
+    </main>
+  </div>
+</body>
+</html>
