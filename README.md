@@ -22,15 +22,15 @@ but retains the server conversation until New chat or session expiry.
    Keep `.env`, `.venv` and `__pycache__` out of Git (already ignored).
 2. Sign in at https://dashboard.render.com and create a **Blueprint** from that repository.
    Render reads the included `render.yaml`.
-3. Set `OPENAI_API_KEY` in Render's environment settings and choose a strong
-   `APP_PASSWORD`. Do not include either secret in your repository.
-4. Deploy. Open the assigned HTTPS URL and sign in with username `weather`
-   and your `APP_PASSWORD`.
+3. Set `OPENAI_API_KEY` in Render's private environment settings. Do not include
+   the key in your repository.
+4. Deploy. Open the assigned HTTPS URL. The website is public and requires no login.
+   Any old `APP_PASSWORD` setting is ignored and can be removed.
 
 The included configuration requests Render's free plan; verify availability in
 your account. Free services can sleep when idle, so the first request may be slow.
-AI requests use your API account. The shared password is intended for a personal
-app; set provider spending limits. The server limits concurrent requests and
+Visitors' AI requests use your API account; set provider spending limits.
+The server limits concurrent requests and
 paces each session, but this is not a multi-user billing or abuse-control system.
 For a manually created Web Service, use `pip install -r requirements.txt` as the
 build command and `uvicorn web_app:app --host 0.0.0.0 --port $PORT --workers 1`

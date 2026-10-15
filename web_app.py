@@ -1,5 +1,4 @@
 """Web interface for the existing Python LangGraph agent."""
-import base64
 import logging
 import os
 import secrets
@@ -41,19 +40,7 @@ class ChatSession:
 
 @app.middleware("http")
 async def protect(request: Request, call_next):
-    password = os.getenv("APP_PASSWORD", "")
     if request.url.path != "/healthz":
-        if os.getenv("RENDER") and not password:
-            return JSONResponse({"detail": "Set APP_PASSWORD in the hosting environment."}, status_code=503)
-        if password:
-            try:
-                scheme, encoded = request.headers.get("authorization", "").split(" ", 1)
-                username, supplied = base64.b64decode(encoded, validate=True).decode().split(":", 1)
-                valid = scheme.lower() == "basic" and secrets.compare_digest(username, "weather") and secrets.compare_digest(supplied.encode(), password.encode())
-            except (ValueError, UnicodeError):
-                valid = False
-            if not valid:
-                return Response(status_code=401, headers={"WWW-Authenticate": 'Basic realm="Weather agent"'})
         if request.method == "POST":
             origin = request.headers.get("origin")
             if origin and urlsplit(origin).netloc != request.headers.get("host"):

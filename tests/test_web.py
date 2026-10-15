@@ -23,15 +23,15 @@ class WebTests(unittest.TestCase):
         self.assertEqual(self.client.get("/.env").status_code, 404)
         self.assertEqual(self.client.get("/static/../.env").status_code, 404)
 
-    def test_password_gate_and_health(self):
+    def test_public_access_ignores_old_password_setting(self):
         with patch.dict(os.environ, {"APP_PASSWORD": "test-password"}):
-            self.assertEqual(self.client.get("/").status_code, 401)
+            self.assertEqual(self.client.get("/").status_code, 200)
             self.assertEqual(self.client.get("/healthz").status_code, 200)
-            self.assertEqual(self.client.get("/", auth=("weather", "test-password")).status_code, 200)
+            self.assertEqual(self.client.get("/api/session").status_code, 200)
 
-    def test_hosted_app_requires_password(self):
+    def test_hosted_app_is_public_without_password(self):
         with patch.dict(os.environ, {"RENDER": "true", "APP_PASSWORD": ""}):
-            self.assertEqual(self.client.get("/").status_code, 503)
+            self.assertEqual(self.client.get("/").status_code, 200)
 
     def test_chat_history_is_separate_and_reset_works(self):
         fake = Mock()
